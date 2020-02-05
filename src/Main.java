@@ -6,16 +6,27 @@ import decorator.Rectangle;
 import decorator.RedShapeDecorator;
 import factory.Shape;
 import factory.ShapeFactory;
+import responsibility.AbstractLogger;
+import responsibility.ConsoleLogger;
+import responsibility.ErrorLogger;
+import responsibility.FileLogger;
 import singleton.SingleObject;
 
 public class Main {
 
     public static void main(String[] args){
-//        callFactoryPattern();
-//        callSingletonPattern();
-//        callBuilderPattern();
-//        callAdapterPattern();
+        System.out.println("------------------FACTORY PATTERN------------------");
+        callFactoryPattern();
+        System.out.println("------------------SINGLETON PATTERN------------------");
+        callSingletonPattern();
+        System.out.println("------------------BUILDER PATTERN------------------");
+        callBuilderPattern();
+        System.out.println("------------------ADAPTER PATTERN------------------");
+        callAdapterPattern();
+        System.out.println("------------------DECORATOR PATTERN------------------");
         callDecoratorPattern();
+        System.out.println("------------------CHAIN OF RESPONSABILITY PATTERN------------------");
+        callResponsabilityChainPattern();
     }
 
     private static void callFactoryPattern(){
@@ -64,5 +75,23 @@ public class Main {
         circle.draw();
         redCirle.draw();
         redRectangle.draw();
+    }
+
+    private static AbstractLogger getChainOfLoggers(){
+        AbstractLogger consoleLogger = new ConsoleLogger(AbstractLogger.INFO);
+        AbstractLogger fileLogger = new FileLogger(AbstractLogger.DEBUG);
+        AbstractLogger errorLogger = new ErrorLogger(AbstractLogger.ERROR);
+
+        errorLogger.setNextLogger(fileLogger);
+        fileLogger.setNextLogger(consoleLogger);
+
+        return errorLogger;
+    }
+
+    private static void callResponsabilityChainPattern(){
+        AbstractLogger loggerChain = getChainOfLoggers();
+        loggerChain.logMessage(AbstractLogger.INFO, "This is an information");
+        loggerChain.logMessage(AbstractLogger.ERROR, "This is an error level information");
+        loggerChain.logMessage(AbstractLogger.DEBUG, "This is an debug level information");
     }
 }
