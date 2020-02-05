@@ -1,6 +1,9 @@
 import adapter.AudioPlayer;
 import builder.Meal;
 import builder.MealBuilder;
+import decorator.Circle;
+import decorator.Rectangle;
+import decorator.RedShapeDecorator;
 import factory.Shape;
 import factory.ShapeFactory;
 import singleton.SingleObject;
@@ -11,7 +14,8 @@ public class Main {
 //        callFactoryPattern();
 //        callSingletonPattern();
 //        callBuilderPattern();
-        callAdapterPattern();
+//        callAdapterPattern();
+        callDecoratorPattern();
     }
 
     private static void callFactoryPattern(){
@@ -50,5 +54,15 @@ public class Main {
         audioPlayer.play("mp4", "alone.mp4");
         audioPlayer.play("vlc", "far far away.vlc");
         audioPlayer.play("avi", "mind me.avi");
+    }
+
+    private static void callDecoratorPattern(){
+        decorator.Shape circle = new Circle();
+        decorator.Shape redCirle = new RedShapeDecorator(new Circle());
+        decorator.Shape redRectangle = new RedShapeDecorator(new Rectangle());
+
+        circle.draw();
+        redCirle.draw();
+        redRectangle.draw();
     }
 }
