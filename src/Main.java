@@ -1,3 +1,4 @@
+import adapter.AudioPlayer;
 import builder.Meal;
 import builder.MealBuilder;
 import factory.Shape;
@@ -7,9 +8,10 @@ import singleton.SingleObject;
 public class Main {
 
     public static void main(String[] args){
-        callFactoryPattern();
-        callSingletonPattern();
-        callBuilderPattern();
+//        callFactoryPattern();
+//        callSingletonPattern();
+//        callBuilderPattern();
+        callAdapterPattern();
     }
 
     private static void callFactoryPattern(){
@@ -40,5 +42,13 @@ public class Main {
         System.out.println("Non Veg Meal: ");
         nonVegMeal.showItems();
         System.out.println("Total Cost: " + vegMeal.getCost());
+    }
+
+    private static void callAdapterPattern(){
+        AudioPlayer audioPlayer = new AudioPlayer();
+        audioPlayer.play("mp3", "beyond the horizon.mp3");
+        audioPlayer.play("mp4", "alone.mp4");
+        audioPlayer.play("vlc", "far far away.vlc");
+        audioPlayer.play("avi", "mind me.avi");
     }
 }
